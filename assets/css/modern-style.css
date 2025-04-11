@@ -1,0 +1,540 @@
+/* Современные стили для системы управления видео колледжей */
+
+/* Основные настройки */
+:root {
+    --primary-color: #4a6cf7;
+    --secondary-color: #6c55f9;
+    --accent-color: #ff6b6b;
+    --dark-color: #2d3748;
+    --light-color: #ffffff;
+    --gray-color: #f8f9fa;
+    --text-color: #333333;
+    --border-radius: 12px;
+    --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+    background-color: #f9fafc;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Типография */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    color: #1a202c;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+/* Контейнеры */
+.container {
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+/* Навигационная панель */
+.navbar {
+    padding: 15px 0;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important;
+}
+
+.navbar-brand {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: white !important;
+    letter-spacing: 1px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 30px;
+    transition: var(--transition);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white !important;
+}
+
+/* Карточки */
+.card {
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+    overflow: hidden;
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 1.25rem 1.5rem;
+    font-weight: 600;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-footer {
+    background-color: transparent;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 1.25rem 1.5rem;
+}
+
+.card-title {
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* Кнопки */
+.btn {
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.btn::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+}
+
+.btn:hover::after {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    border: none;
+    box-shadow: 0 8px 15px rgba(74, 108, 247, 0.2);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+    box-shadow: 0 8px 20px rgba(74, 108, 247, 0.4);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    border: none;
+    box-shadow: 0 8px 15px rgba(40, 167, 69, 0.2);
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, #20c997 0%, #28a745 100%);
+    box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%);
+    border: none;
+    box-shadow: 0 8px 15px rgba(220, 53, 69, 0.2);
+}
+
+.btn-danger:hover {
+    background: linear-gradient(135deg, #ff6b6b 0%, #dc3545 100%);
+    box-shadow: 0 8px 20px rgba(220, 53, 69, 0.4);
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #00d2ff 100%);
+    border: none;
+    box-shadow: 0 8px 15px rgba(23, 162, 184, 0.2);
+    color: white;
+}
+
+.btn-info:hover {
+    background: linear-gradient(135deg, #00d2ff 0%, #17a2b8 100%);
+    box-shadow: 0 8px 20px rgba(23, 162, 184, 0.4);
+    color: white;
+}
+
+/* Формы */
+.form-control {
+    border-radius: 8px;
+    padding: 12px 15px;
+    border: 1px solid #e2e8f0;
+    transition: var(--transition);
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(74, 108, 247, 0.15);
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #4a5568;
+}
+
+/* Таблицы */
+.table {
+    box-shadow: var(--box-shadow);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.table thead {
+    background: linear-gradient(135deg, #f5f7ff 0%, #eef1f9 100%);
+}
+
+.table thead th {
+    font-weight: 600;
+    border-bottom: none;
+    padding: 15px;
+    color: #4a5568;
+}
+
+.table tbody td {
+    padding: 15px;
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background-color: #f9faff;
+}
+
+/* Сообщения и оповещения */
+.alert {
+    border-radius: var(--border-radius);
+    border: none;
+    padding: 15px 20px;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem;
+}
+
+.alert-success {
+    background-color: #eef9f2;
+    color: #28a745;
+}
+
+.alert-danger {
+    background-color: #feefef;
+    color: #dc3545;
+}
+
+.alert-info {
+    background-color: #e6f8fb;
+    color: #17a2b8;
+}
+
+.alert-warning {
+    background-color: #fff8e6;
+    color: #ffc107;
+}
+
+/* Баджи */
+.badge {
+    padding: 8px 12px;
+    font-weight: 500;
+    border-radius: 50px;
+    letter-spacing: 0.5px;
+}
+
+.bg-success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+}
+
+.bg-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%) !important;
+}
+
+.bg-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #ffda64 100%) !important;
+}
+
+/* Главный блок на главной странице */
+.jumbotron {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    border-radius: var(--border-radius);
+    padding: 3rem !important;
+    margin-bottom: 2.5rem;
+    box-shadow: var(--box-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.jumbotron::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(30deg);
+    pointer-events: none;
+}
+
+.jumbotron h1 {
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    color: white;
+}
+
+.jumbotron .lead {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+}
+
+.jumbotron .btn {
+    padding: 12px 30px;
+    font-size: 1rem;
+    background-color: white;
+    color: var(--primary-color);
+    font-weight: 600;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.jumbotron .btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Подвал */
+footer {
+    background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+    color: white;
+    padding: 3rem 0 1.5rem;
+    margin-top: 5rem;
+}
+
+footer h5 {
+    color: white;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+footer h5::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 50px;
+    height: 2px;
+    background: var(--primary-color);
+}
+
+footer ul li {
+    margin-bottom: 10px;
+}
+
+footer a {
+    color: rgba(255, 255, 255, 0.8) !important;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: white !important;
+    padding-left: 5px;
+}
+
+footer .text-muted {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Видеоплеер */
+.video-container {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.ratio-16x9 iframe,
+.ratio-16x9 video {
+    border-radius: var(--border-radius);
+}
+
+/* Комментарии */
+.comment-card {
+    border-left: 4px solid var(--primary-color);
+    padding: 1rem;
+    background-color: #f9fafc;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    margin-bottom: 1.5rem;
+}
+
+/* Пагинация */
+.pagination .page-item .page-link {
+    color: var(--primary-color);
+    border: none;
+    margin: 0 5px;
+    font-weight: 500;
+    border-radius: 50px;
+    padding: 10px 18px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Модальные окна */
+.modal-content {
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #f5f7ff 0%, #eef1f9 100%);
+    border-bottom: none;
+    padding: 1.5rem;
+}
+
+.modal-title {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    border-top: none;
+    padding: 1.5rem;
+}
+
+/* Дополнительные эффекты */
+.fade-in {
+    animation: fadeIn 0.6s ease-in;
+}
+
+.zoom-in {
+    animation: zoomIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .navbar-collapse {
+        background-color: var(--primary-color);
+        padding: 15px;
+        border-radius: var(--border-radius);
+        margin-top: 10px;
+    }
+    
+    .navbar-dark .navbar-toggler {
+        border: none;
+    }
+    
+    .jumbotron {
+        padding: 2rem !important;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 20px;
+    }
+    
+    .jumbotron {
+        padding: 1.5rem !important;
+    }
+    
+    h1 {
+        font-size: 1.75rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    .table-responsive {
+        border-radius: var(--border-radius);
+    }
+    
+    footer {
+        padding-top: 2rem;
+    }
+    
+    footer h5 {
+        margin-top: 1.5rem;
+    }
+}
+
+/* Темная тема (для будущего использования) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dark-color-scheme: #1a202c;
+    }
+} 
