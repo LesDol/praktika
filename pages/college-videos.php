@@ -132,7 +132,7 @@ $videos = $stmt->fetchAll();
                 <h3>Добавить новое видео</h3>
             </div>
             <div class="card-body">
-                <form method="POST" action="">
+                <form method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="add_video">
                     
                     <div class="mb-3">
@@ -146,15 +146,37 @@ $videos = $stmt->fetchAll();
                     </div>
                     
                     <div class="mb-3">
+                        <label class="form-label">Тип видео</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="video_type" id="type_url" value="url" checked>
+                            <label class="form-check-label" for="type_url">
+                                Ссылка на видео
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="video_type" id="type_file" value="file">
+                            <label class="form-check-label" for="type_file">
+                                Загрузить файл
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div id="url_input" class="mb-3">
                         <label for="url" class="form-label">URL видео</label>
-                        <input type="url" class="form-control" id="url" name="url" required>
-                        <small class="text-muted">Укажите прямую ссылку на видео файл или на YouTube</small>
+                        <input type="url" class="form-control" id="url" name="url">
+                        <small class="text-muted">Укажите прямую ссылку на видео с Rutube</small>
+                    </div>
+                    
+                    <div id="file_input" class="mb-3" style="display: none;">
+                        <label for="video_file" class="form-label">Видео файл</label>
+                        <input type="file" class="form-control" id="video_file" name="video_file" accept="video/*">
+                        <small class="text-muted">Поддерживаемые форматы: MP4, WebM, OGG (максимальный размер: 100MB)</small>
                     </div>
                     
                     <div class="mb-3">
                         <label for="tags" class="form-label">Тэги</label>
                         <input type="text" class="form-control" id="tags" name="tags">
-                        <small class="text-muted">Введите тэги через запятую (например: математика, физика, химия)</small>
+                        <small class="text-muted">Введите тэги через запятую</small>
                     </div>
                     
                     <button type="submit" class="btn btn-primary">Добавить видео</button>
@@ -165,80 +187,30 @@ $videos = $stmt->fetchAll();
 </div>
 
 <div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                <h3>Мои видео</h3>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Название</th>
-                                <th>Дата</th>
-                                <th>Статус</th>
-                                <th>Просмотры</th>
-                                <th>Тэги</th>
-                                <th>Действия</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($videos as $video): ?>
-                                <tr>
-                                    <td><?php echo htmlspecialchars($video['title']); ?></td>
-                                    <td><?php echo date('d.m.Y', strtotime($video['created_at'])); ?></td>
-                                    <td>
-                                        <?php
-                                        switch ($video['status']) {
-                                            case 'pending':
-                                                echo '<span class="badge bg-warning text-dark">На модерации</span>';
-                                                break;
-                                            case 'published':
-                                                echo '<span class="badge bg-success">Опубликовано</span>';
-                                                break;
-                                            case 'rejected':
-                                                echo '<span class="badge bg-danger">Отклонено</span>';
-                                                break;
-                                        }
-                                        ?>
-                                    </td>
-                                    <td><?php echo $video['views']; ?></td>
-                                    <td><?php echo $video['tags'] ? htmlspecialchars($video['tags']) : 'Нет тэгов'; ?></td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-primary edit-video-btn" 
-                                                    data-bs-toggle="modal" 
-                                                    data-bs-target="#editVideoModal" 
-                                                    data-id="<?php echo $video['id']; ?>"
-                                                    data-title="<?php echo htmlspecialchars($video['title']); ?>"
-                                                    data-description="<?php echo htmlspecialchars($video['description'] ?? ''); ?>"
-                                                    data-url="<?php echo htmlspecialchars($video['url']); ?>"
-                                                    data-tags="<?php echo htmlspecialchars($video['tags'] ?? ''); ?>">
-                                                Редактировать
-                                            </button>
-                                            <a href="index.php?page=video&id=<?php echo $video['id']; ?>" class="btn btn-sm btn-info">Просмотр</a>
-                                            <form method="POST" class="d-inline" onsubmit="return confirm('Вы уверены, что хотите удалить это видео?')">
-                                                <input type="hidden" name="action" value="delete_video">
-                                                <input type="hidden" name="video_id" value="<?php echo $video['id']; ?>">
-                                                <button type="submit" class="btn btn-sm btn-danger">Удалить</button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                            
-                            <?php if (empty($videos)): ?>
-                                <tr>
-                                    <td colspan="6" class="text-center">У вас пока нет видео</td>
-                                </tr>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
+    <?php foreach ($videos as $video): ?>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <?php if ($video['thumbnail_url']): ?>
+                    <img src="<?php echo htmlspecialchars($video['thumbnail_url']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($video['title']); ?>">
+                <?php else: ?>
+                    <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="fas fa-video fa-3x"></i>
+                    </div>
+                <?php endif; ?>
+                <div class="card-body">
+                    <h5 class="card-title"><?php echo htmlspecialchars($video['title']); ?></h5>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            Дата: <?php echo date('d.m.Y', strtotime($video['created_at'])); ?><br>
+                            Просмотры: <?php echo $video['views']; ?><br>
+                            Тэги: <?php echo $video['tags'] ? htmlspecialchars($video['tags']) : 'Нет тэгов'; ?>
+                        </small>
+                    </p>
+                    <a href="index.php?page=video&id=<?php echo $video['id']; ?>" class="btn btn-primary">Смотреть</a>
                 </div>
             </div>
         </div>
-    </div>
+    <?php endforeach; ?>
 </div>
 
 <!-- Edit Video Modal -->
@@ -284,16 +256,26 @@ $videos = $stmt->fetchAll();
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Edit video modal
-    const editButtons = document.querySelectorAll('.edit-video-btn');
-    editButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            document.getElementById('edit_video_id').value = this.getAttribute('data-id');
-            document.getElementById('edit_title').value = this.getAttribute('data-title');
-            document.getElementById('edit_description').value = this.getAttribute('data-description');
-            document.getElementById('edit_url').value = this.getAttribute('data-url');
-            document.getElementById('edit_tags').value = this.getAttribute('data-tags');
-        });
-    });
+    const typeUrl = document.getElementById('type_url');
+    const typeFile = document.getElementById('type_file');
+    const urlInput = document.getElementById('url_input');
+    const fileInput = document.getElementById('file_input');
+    
+    function toggleInputs() {
+        if (typeUrl.checked) {
+            urlInput.style.display = 'block';
+            fileInput.style.display = 'none';
+            document.getElementById('url').required = true;
+            document.getElementById('video_file').required = false;
+        } else {
+            urlInput.style.display = 'none';
+            fileInput.style.display = 'block';
+            document.getElementById('url').required = false;
+            document.getElementById('video_file').required = true;
+        }
+    }
+    
+    typeUrl.addEventListener('change', toggleInputs);
+    typeFile.addEventListener('change', toggleInputs);
 });
 </script> 

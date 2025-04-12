@@ -392,6 +392,7 @@ footer .text-muted {
     border-radius: var(--border-radius);
 }
 
+
 /* Комментарии */
 .comment-card {
     border-left: 4px solid var(--primary-color);

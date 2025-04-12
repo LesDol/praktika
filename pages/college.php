@@ -12,11 +12,11 @@ if (!$college) {
 }
 
 // Get videos with sorting
-$sort = isset($_GET['sort']) ? $_GET['sort'] : 'date';
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'created_at';
 $order = isset($_GET['order']) ? $_GET['order'] : 'desc';
 
-$allowed_sorts = ['date', 'title', 'views'];
-$sort = in_array($sort, $allowed_sorts) ? $sort : 'date';
+$allowed_sorts = ['created_at', 'title', 'views'];
+$sort = in_array($sort, $allowed_sorts) ? $sort : 'created_at';
 $order = $order === 'asc' ? 'ASC' : 'DESC';
 
 $query = "SELECT v.*, GROUP_CONCAT(DISTINCT vt.name) as tags 
@@ -42,10 +42,10 @@ $videos = $stmt->fetchAll();
     <div class="col-md-12">
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                Сортировка: <?php echo $sort === 'date' ? 'Дата' : ($sort === 'title' ? 'Название' : 'Просмотры'); ?>
+                Сортировка: <?php echo $sort === 'created_at' ? 'Дата' : ($sort === 'title' ? 'Название' : 'Просмотры'); ?>
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="?page=college&id=<?php echo $college_id; ?>&sort=date&order=<?php echo $order === 'ASC' ? 'desc' : 'asc'; ?>">Дата</a></li>
+                <li><a class="dropdown-item" href="?page=college&id=<?php echo $college_id; ?>&sort=created_at&order=<?php echo $order === 'ASC' ? 'desc' : 'asc'; ?>">Дата</a></li>
                 <li><a class="dropdown-item" href="?page=college&id=<?php echo $college_id; ?>&sort=title&order=<?php echo $order === 'ASC' ? 'desc' : 'asc'; ?>">Название</a></li>
                 <li><a class="dropdown-item" href="?page=college&id=<?php echo $college_id; ?>&sort=views&order=<?php echo $order === 'ASC' ? 'desc' : 'asc'; ?>">Просмотры</a></li>
             </ul>
